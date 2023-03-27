@@ -1,5 +1,12 @@
 ﻿using Demonizer;
+using Demonizer.SampleApp;
+using Microsoft.Extensions.DependencyInjection;
 
-var builder = new DemonizerBuilder();
+var services = new ServiceCollection();
+services.AddSingleton<NowTimeService>();
 
-builder.Build().Run(args);
+return new DemonizerBuilder()
+	.AddServices(services)
+	.AddDemosFromThisAssembly()
+	.Build()
+	.Run(args);

@@ -1,15 +1,17 @@
 using System.Reflection;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Demonizer;
 
 public class DemonizerBuilder
 {
 	private readonly HashSet<Assembly> _assemblies = new();
-	private IServiceProvider? _serviceProvider;
-	
-	public DemonizerBuilder AddDemosFromExecutingAssembly()
+	private IServiceCollection? _serviceCollection;
+
+	public DemonizerBuilder AddDemosFromThisAssembly()
 	{
-		_assemblies.Add(Assembly.GetExecutingAssembly());
+		_assemblies.Add(Assembly.GetCallingAssembly());
 
 		return this;
 	}
@@ -22,17 +24,17 @@ public class DemonizerBuilder
 		return this;
 	}
 
-	public DemonizerBuilder AddServiceProvider(IServiceProvider serviceProvider)
+	public DemonizerBuilder AddServices(IServiceCollection serviceCollection)
 	{
-		ArgumentNullException.ThrowIfNull(serviceProvider);
-		_serviceProvider = serviceProvider;
+		ArgumentNullException.ThrowIfNull(serviceCollection);
+		_serviceCollection = serviceCollection;
 
 		return this;
 	}
 
 	public Demonizer Build()
 	{
-		if (_assemblies.Count == 0) AddDemosFromExecutingAssembly();
-		return new Demonizer(_assemblies, _serviceProvider);
+		_serviceCollection ??= new ServiceCollection();
+		return new(_assemblies, _serviceCollection.BuildServiceProvider());
 	}
 }

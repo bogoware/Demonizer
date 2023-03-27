@@ -1,6 +1,7 @@
 namespace Demonizer.SampleApp;
 
-public class HelloWorldDemo: ISimpleDemo
+[Demo(Description = "The simplest demo", Order = 0)]
+public class HelloWorldDemo: IDemo
 {
-	public static void Run(string[] args) => Console.WriteLine("Hello world");
+	public void Run(string[] args) => Console.WriteLine("Hello world");
 }
