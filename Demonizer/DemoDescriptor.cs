@@ -1,6 +1,5 @@
 namespace Demonizer;
-
-internal class DemoDescriptor: IComparable<DemoDescriptor>
+internal class DemoDescriptor : IComparable<DemoDescriptor>
 {
 	public required Type Type { get; init; }
 	public required string Name { get; init; }
