@@ -109,5 +109,6 @@ jobs:
       - name: Publish NuGet package
         run: |
           foreach($file in (Get-ChildItem "${{ env.NuGetDirectory }}" -Recurse -Include *.nupkg)) {
-              dotnet nuget push $file --api-key "${{ secrets.NUGET_TEST_APIKEY }}" --source https://int.nugettest.org/v3/index.json --skip-duplicate
+              #dotnet nuget push $file --api-key "${{ secrets.NUGET_TEST_APIKEY }}" --source https://int.nugettest.org/v3/index.json --skip-duplicate
+              dotnet nuget push $file --api-key "${{ secrets.NUGET_TEST_APIKEY }}" --source https://int.nugettest.org/api/v2 --skip-duplicate
           }
