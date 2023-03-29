@@ -31,7 +31,7 @@ public sealed class Demonizer
 	}
 
 	/// <summary>
-	/// Return an  suitable to initialize an <see cref="CommandApp"/> or <see cref="Spectre.Console.Testing.CommandAppTester"/>
+	/// Return an  suitable to initialize an <see cref="CommandApp"/> or Spectre.Console.Testing.CommandAppTester.
 	/// </summary>
 	/// <returns></returns>
 	internal ITypeRegistrar GetTypeRegistrar()

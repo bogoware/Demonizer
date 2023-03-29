@@ -26,7 +26,7 @@ public class DemonizerBuilder
 	/// </summary>
 	/// <param name="type"></param>
 	/// <returns></returns>
-	/// <exception cref="InvalidCastException">In case the <see cref="type"/> doesn't inherit from <see cref="IDemo"/></exception>
+	/// <exception cref="InvalidCastException">In case the <code>type</code> doesn't inherit from <see cref="IDemo"/></exception>
 	public DemonizerBuilder AddDemo(Type type)
 	{
 		ArgumentNullException.ThrowIfNull(type);
@@ -73,7 +73,7 @@ public class DemonizerBuilder
 		AddDemosFromAssembly(Assembly.GetCallingAssembly());
 
 	/// <summary>
-	/// Add all the demos present in the <see cref="assembly"/>.
+	/// Add all the demos present in the <code>assembly</code>.
 	/// </summary>
 	public DemonizerBuilder AddDemosFromAssembly(Assembly assembly)
 	{
