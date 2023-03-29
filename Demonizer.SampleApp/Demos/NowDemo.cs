@@ -1,7 +1,9 @@
-namespace Demonizer.SampleApp;
+using Demonizer.SampleApp.Services;
+
+namespace Demonizer.SampleApp.Demos;
 
 [Demo(Description = "This demo shows how injection works.", Order = 1)]
-public class NowDemo: IDemo
+internal class NowDemo: IDemo
 {
 	private readonly NowTimeService _timeService;
 

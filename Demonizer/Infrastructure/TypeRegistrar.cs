@@ -5,26 +5,26 @@ namespace Demonizer.Infrastructure;
 
 internal sealed class TypeRegistrar : ITypeRegistrar
 {
-	private readonly IServiceCollection _builder;
+	private readonly IServiceCollection _serviceCollection;
 
-	public TypeRegistrar(IServiceCollection builder)
+	public TypeRegistrar(IServiceCollection serviceCollection)
 	{
-		_builder = builder;
+		_serviceCollection = serviceCollection;
 	}
 
 	public ITypeResolver Build()
 	{
-		return new TypeResolver(_builder.BuildServiceProvider());
+		return new TypeResolver(_serviceCollection.BuildServiceProvider());
 	}
 
 	public void Register(Type service, Type implementation)
 	{
-		_builder.AddSingleton(service, implementation);
+		_serviceCollection.AddSingleton(service, implementation);
 	}
 
 	public void RegisterInstance(Type service, object implementation)
 	{
-		_builder.AddSingleton(service, implementation);
+		_serviceCollection.AddSingleton(service, implementation);
 	}
 
 	public void RegisterLazy(Type service, Func<object> func)
@@ -34,6 +34,6 @@ internal sealed class TypeRegistrar : ITypeRegistrar
 			throw new ArgumentNullException(nameof(func));
 		}
 
-		_builder.AddSingleton(service, (provider) => func());
+		_serviceCollection.AddSingleton(service, (provider) => func());
 	}
 }

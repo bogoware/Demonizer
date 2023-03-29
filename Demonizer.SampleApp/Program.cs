@@ -1,12 +1,13 @@
-﻿using Demonizer;
-using Demonizer.SampleApp;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Demonizer.SampleApp.Demos;
+using Demonizer.SampleApp.Services;
 
-var services = new ServiceCollection();
-services.AddSingleton<NowTimeService>();
+var demonizerApp = new DemonizerBuilder()
+	.ConfigureServices(services => // Configure IoC for DI
+	{
+		services.AddSingleton<NowTimeService>();
+	})
+	.AddDemo<HelloWorldDemo>()  // Adding explicitly demos
+	.AddDemosFromThisAssembly() // Discover demos from assemblies
+	.Build();                   // Build the app
 
-return new DemonizerBuilder()
-	.AddServices(services)
-	.AddDemosFromThisAssembly()
-	.Build()
-	.Run(args);
+return demonizerApp.Run(args); // Tun the App

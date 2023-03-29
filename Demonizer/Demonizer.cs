@@ -1,36 +1,43 @@
-﻿using System.Diagnostics;
-using System.Reflection;
-using System.Text;
-using Demonizer.Commands;
+﻿using Demonizer.Commands;
 using Demonizer.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
-using Spectre.Console;
 using Spectre.Console.Cli;
 
 namespace Demonizer;
 
 public sealed class Demonizer
 {
-	private readonly List<Assembly> _assemblies;
+	private readonly HashSet<DemoDescriptor> _demoDescriptors;
 	private readonly IServiceProvider _serviceProvider;
+	private readonly string? _appName;
 
-	internal Demonizer(IEnumerable<Assembly> assemblies, IServiceProvider serviceProvider)
+	internal Demonizer(HashSet<DemoDescriptor> demoDescriptors, IServiceProvider serviceProvider, string? appName)
 	{
-		ArgumentNullException.ThrowIfNull(assemblies);
+		ArgumentNullException.ThrowIfNull(demoDescriptors);
 		ArgumentNullException.ThrowIfNull(serviceProvider);
-		_assemblies = assemblies.ToList();
+		_demoDescriptors = demoDescriptors;
 		_serviceProvider = serviceProvider;
+		_appName = appName;
 	}
 
 	public int Run(string[] args)
 	{
-		var cliServices = new ServiceCollection();
-		cliServices.AddSingleton(new RunDemosConfiguration(_assemblies, _serviceProvider));
-		var registrar = new TypeRegistrar(cliServices);
-		var app = new CommandApp<RunDemosCommand>(registrar);
+		var app = new CommandApp<Main>(GetTypeRegistrar());
+		if (_appName != null)
+		{
+			app.Configure(conf => { conf.SetApplicationName(_appName); });
+		}
 		return app.Run(args);
-		
 	}
 
-	
+	/// <summary>
+	/// Return an  suitable to initialize an <see cref="CommandApp"/> or <see cref="Spectre.Console.Testing.CommandAppTester"/>
+	/// </summary>
+	/// <returns></returns>
+	internal ITypeRegistrar GetTypeRegistrar()
+	{
+		var cliServices = new ServiceCollection();
+		cliServices.AddSingleton(new Main.Configuration(_demoDescriptors, _serviceProvider));
+		return new TypeRegistrar(cliServices);
+	}
 }

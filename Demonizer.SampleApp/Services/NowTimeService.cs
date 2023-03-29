@@ -1,4 +1,4 @@
-namespace Demonizer.SampleApp;
+namespace Demonizer.SampleApp.Services;
 
 public class NowTimeService
 {
