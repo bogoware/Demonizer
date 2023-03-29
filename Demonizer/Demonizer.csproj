@@ -1,5 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
+  <Sdk Name="DotNet.ReproducibleBuilds.Isolated" Version="1.1.1" />
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -12,12 +12,12 @@
     <Company>Bogoware</Company>
     <Product>Demonizer</Product>
     <Description>Demonizer is an utility lib to rapidly generate a CLI program for demo purposes</Description>
-    <Copyright>Copyright © Giovanni Costagliola 2023</Copyright>
     <Summary>Demonizer is an utility lib to rapidly generate a CLI program for demo purposes</Summary>
+    <Copyright>Copyright © Giovanni Costagliola 2023</Copyright>
     <NeutralLanguage>en-US</NeutralLanguage>
     <Title>Bogoware.Demonizer</Title>
     <PackageId>Bogoware.Demonizer</PackageId>
-    <PackageTags>cli demo prototype helper utility</PackageTags>
+    <PackageTags>cli demo prototype utility library console shell ansi</PackageTags>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <!-- <PackageIcon>packageIcon.png</PackageIcon> -->
     <!-- <PackageIconUrl></PackageIconUrl> -->
@@ -26,10 +26,16 @@
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <RepositoryUrl>https://github.com/bogoware/demonizer</RepositoryUrl>
     <RepositoryType>github</RepositoryType>
-
-</PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <!-- If all members are not documented, you can disable the compiler warnings -->
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+  </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="DotNet.ReproducibleBuilds" Version="1.1.1">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
     <PackageReference Include="Spectre.Console" Version="0.46.0" />
