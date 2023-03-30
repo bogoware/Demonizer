@@ -21,7 +21,7 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <!-- <PackageIcon>packageIcon.png</PackageIcon> -->
     <!-- <PackageIconUrl></PackageIconUrl> -->
-    <!-- <PackageProjectUrl>https://github.com/bogoware/demonizer</PackageProjectUrl> -->
+    <PackageProjectUrl>https://mr.bogoware.io/projects/2023/demonizer</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <RepositoryUrl>https://github.com/bogoware/demonizer</RepositoryUrl>
