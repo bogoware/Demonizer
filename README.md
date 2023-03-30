@@ -89,6 +89,28 @@ Service lifetimes are interpreted in the following way by Demnizer:
 - **Scoped**: they are create the first time they're request by A SPECIFIC demo. Subsequent requests within the same demo will use the same instance. This services can be seen like *signletons at demo scope*.
 - **Transient**: they are created every time they're requested.
 
+Enabling DI in Demonizer simply imply to configure a `ServiceCollection` provided by the library:
+
+```
+// Program.cs - complete example
+using Demonizer;
+using MyDemoApp;
+using Microsoft.Extensions.DependencyInjection;
+
+var program = new DemonizerBuilder()
+.SetAppName("My Demo App")  // Used by help
+.AddDemosFromThisAssembly() // Add all classes implementing IDemo
+.AddDemo<MyDemo>()          // Alternatively add selectively the demos you want
+.ConfigureServices(conf =>  // If your demos require DI
+{
+conf.AddSingleton<DemoSingletonService>();
+conf.AddScoped<DemoScopedService>();
+conf.AddTransient<DemoTransientService>();
+}).Build();
+
+return program.Run(args);
+```
+
 ## Contributing
 
 If you would like to contribute to Demonizer, please fork the project and submit a pull request. We welcome contributions of all kinds, including bug fixes, feature requests, and documentation improvements.
