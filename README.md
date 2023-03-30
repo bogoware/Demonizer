@@ -45,7 +45,7 @@ public class MyDemo: IDemo
 
 Please note that the `DemoAttribute` is not required. By default the name of the demo match its class name, its order is -1 and is enabled, of course.
 
-And finally turn your program to a CLI application by installing Demonzer:
+Finally turn your program to a CLI application by installing Demonizer:
 
 ``` 
 // Program.cs
@@ -80,14 +80,14 @@ This restriction doesn't apply to unrecognized subcommands of `dotnet run`.
 
 ### Dependency Injection
 
-We know, even a modest demo app can quickly required a bit of organization and DI is of help in this case.
+We know, even a modest demo app can quickly require a bit of organization and DI is of help in this case.
 
 Demonizer integrates [Microsoft Dependency Injection Extensions](https://www.nuget.org/packages/Microsoft.Extensions.DependencyInjection/) to provide this capability.
 
-Service lifetimes are interpreted in the following way by Demnizer:
-- **Singleton**: they are created the first time they're requested by ANY demo and are shared by all the demos. 
-- **Scoped**: they are create the first time they're request by A SPECIFIC demo. Subsequent requests within the same demo will use the same instance. This services can be seen like *signletons at demo scope*.
-- **Transient**: they are created every time they're requested.
+Demonizer inteprets service lifetimes in the followingn way:
+- **Singleton**: created once and shared by all the demos. 
+- **Scoped**: created once for each demo. They act like  *signletons at demo scope*.
+- **Transient**: created every time they're requested.
 
 Enabling DI in Demonizer simply imply to configure a `ServiceCollection` provided by the library:
 
@@ -98,16 +98,16 @@ using MyDemoApp;
 using Microsoft.Extensions.DependencyInjection;
 
 var program = new DemonizerBuilder()
-.SetAppName("My Demo App")  // Used by help
-.AddDemosFromThisAssembly() // Add all classes implementing IDemo
-.AddDemo<MyDemo>()          // Alternatively add selectively the demos you want
-.ConfigureServices(conf =>  // If your demos require DI
-{
-conf.AddSingleton<DemoSingletonService>();
-conf.AddScoped<DemoScopedService>();
-conf.AddTransient<DemoTransientService>();
-}).Build();
-
+    .SetAppName("My Demo App")  // Used by help
+    .AddDemosFromThisAssembly() // Add all classes implementing IDemo
+    .AddDemo<MyDemo>()          // Alternatively add selectively the demos you want
+    .ConfigureServices(conf =>  // If your demos require DI
+    {
+        conf.AddSingleton<DemoSingletonService>();
+        conf.AddScoped<DemoScopedService>();
+        conf.AddTransient<DemoTransientService>();
+    }).Build();
+  
 return program.Run(args);
 ```
 
