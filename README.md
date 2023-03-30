@@ -70,13 +70,13 @@ This restriction doesn't apply to unrecognized subcommands of `dotnet run`.
 ### Screenshots
 
 #### Default: execute all demos
-![img.png](assets/run.png)
+![img.png](https://github.com/bogoware/Demonizer/blob/main/assets/run.png)
 
 #### Help switch
-![img.png](assets/help.png)
+![img.png](https://github.com/bogoware/Demonizer/blob/main/assets/help.png)
 
 #### List switch
-![img.png](assets/list.png)
+![img.png](https://github.com/bogoware/Demonizer/blob/main/assets/list.png)
 
 ### Dependency Injection
 
