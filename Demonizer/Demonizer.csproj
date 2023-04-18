@@ -7,7 +7,7 @@
     <LangVersion>11</LangVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Version>0.0.1</Version>
-    <PackageId>Bogoware.Demo:nizer</PackageId>
+    <PackageId>Bogoware.Demonizer</PackageId>
     <Authors>Giovanni Costagliola</Authors>
     <Company>Bogoware</Company>
     <Product>Demonizer</Product>
